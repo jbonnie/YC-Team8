@@ -44,10 +44,6 @@ public class Post {
     @LastModifiedDate
     private LocalDateTime updatedAt = LocalDateTime.now();
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "id")      // 외래키의 이름 지정
-    private List<Comment> comments;      // 게시글에 포함되어 있는 댓글 entity List
-
     public Post(Long id, int postType, String title, String contents, long writerId, boolean deletion) {
         this.id = id;
         this.postType = postType;
