@@ -1,8 +1,8 @@
 package yc.team8.baseball.scrap.domain;
 
 import jakarta.persistence.*; //javax
-
-import java.io.Serializable;
+import yc.team8.baseball.post.domain.Post;
+import yc.team8.baseball.user.domain.User;
 
 @Entity
 @Table(name="scrap")
