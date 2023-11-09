@@ -69,7 +69,7 @@ public class CommentService {
     }
 
     @Transactional
-    public void deleteContent(Long commentId) {
+    public void deleteComment(Long commentId) {
         Comment comment = commentRepository.findById(commentId).orElseThrow();
         User user = userRepository.findByEmail(SecurityUtil.getLoginEmail()).orElseThrow();
         if (comment.getUser() == user) {
