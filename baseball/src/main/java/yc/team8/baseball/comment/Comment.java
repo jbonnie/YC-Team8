@@ -3,6 +3,7 @@ package yc.team8.baseball.comment;
 import jakarta.persistence.*;
 import lombok.*;
 import yc.team8.baseball.post.domain.Post;
+import yc.team8.baseball.user.domain.User;
 
 import java.time.LocalDateTime;
 
@@ -19,8 +20,8 @@ public class Comment {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
