@@ -31,4 +31,8 @@ public class Comment {
     private String content;
 
     private LocalDateTime createdAt;
+
+    public void edit(String content) {
+        this.content = content;
+    }
 }
