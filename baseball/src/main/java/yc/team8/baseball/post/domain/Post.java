@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import yc.team8.baseball.post.dto.PostDto;
 
 import java.time.LocalDateTime;
 
@@ -51,5 +52,17 @@ public class Post {
         this.contents = contents;
         this.writerId = writerId;
         this.deletion = deletion;
+    }
+
+    public Post(int postType, String title, String contents, long writerId, boolean deletion) {
+        this.postType = postType;
+        this.title = title;
+        this.contents = contents;
+        this.writerId = writerId;
+        this.deletion = deletion;
+    }
+
+    public PostDto toPostDto(){
+        return new PostDto(id,postType,title,contents,writerId,deletion);
     }
 }
