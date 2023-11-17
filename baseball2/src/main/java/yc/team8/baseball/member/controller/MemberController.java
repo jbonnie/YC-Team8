@@ -1,14 +1,12 @@
 package yc.team8.baseball.member.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import yc.team8.baseball.member.domain.Member;
 import yc.team8.baseball.member.dto.MemberDto;
@@ -167,6 +165,7 @@ public class MemberController {
         }
         Long id = (Long)session.getAttribute("memberID");   // 유저의 id 가져오기
         memberService.deleteMember(id);     // DB에서 유저 삭제
+        session.invalidate();       // 세션 삭제
         rttr.addFlashAttribute("msg", "Successful withdrawal.");
         return "redirect:/login";       // 로그인 화면으로 리다이렉트
     }
