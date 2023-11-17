@@ -36,14 +36,22 @@ public class PostService {
         return post;
     }
 
-    // postDto로 받은 데이터 엔티티로 변환 후 db에 저장
+    // 해당 id의 유저가 쓴 게시글 엔티티 모두 가져오기
+    public ArrayList<Post> getPostsByWriter(Long writerId) {
+        ArrayList<Post> postArr = postRepository.findAllByWriterId(writerId);
+        // ArrayList<Post> 업데이트 시간 빠른 순으로 정렬
+        Collections.sort(postArr);
+        return postArr;
+    }
+
+    // postDto로 받은 데이터 엔티티로 변환 후 DB에 저장
     public Post createPost(PostDto postDto) {
         Post postEntity = postDto.toEntity();
         Post saved = postRepository.save(postEntity);
         return saved;
     }
 
-    // postDto로 받은 데이터로 db에 있던 게시물 내용 교체
+    // postDto로 받은 데이터로 DB에 있던 게시물 내용 교체
     public Post updatePost(PostDto postDto) {
 
         Post target = postRepository.findById(postDto.getId()).orElse(null);
@@ -56,7 +64,7 @@ public class PostService {
         return target;
     }
 
-    // id 값에 해당하는 게시물 db에서 삭제
+    // id 값에 해당하는 게시물 DB에서 삭제
     public void deletePost(Long id) {
         Post target = postRepository.findById(id).orElse(null);
         if(target != null) {

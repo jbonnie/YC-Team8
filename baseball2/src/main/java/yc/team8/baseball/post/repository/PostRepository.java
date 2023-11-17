@@ -9,4 +9,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     // 구단, 게시판 종류로 구분하여 전체 게시글 arraylist로 가져오기
     ArrayList<Post> findAllByPostTypeAndTeamName(int postType, String teamName);
+
+    ArrayList<Post> findAllByWriterId(Long writerId);
 }
