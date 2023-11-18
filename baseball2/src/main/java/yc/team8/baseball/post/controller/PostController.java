@@ -66,15 +66,41 @@ public class PostController {
     }
     // 게시판 글 등록할 수 있는 화면 띄우기
     @GetMapping("/{teamName}/{postType}/create")
-    public String createPost() {
+    public String createPost(@PathVariable String teamName,
+                             @PathVariable String postType,
+                             HttpServletRequest request,
+                             RedirectAttributes rttr,
+                             Model model) {
+        model.addAttribute("teamName", teamName);
+        model.addAttribute("postType", postType);
+        model.addAttribute("intPostType", intPostType(postType));
+
+       /* HttpSession session = request.getSession(false); // --유저 정보(id) 가져오기 위한 부분
+        if(postType.equals("talk")) {
+            if(session == null)
+                return "redirect:/login";
+            Long id = (Long)session.getAttribute("memberID");
+            Member member = memberService.getMemberWithId(id);
+            if(!member.getTeam().equals(teamName)) {        // 자격이 없음
+                String msg = "You're not a fan of " + teamName + "!";
+                rttr.addFlashAttribute("msg", msg);
+                return "redirect:/" + teamName;
+            }
+        } // 자격 확인 (위 코드 복붙)
+        Long id = (Long)session.getAttribute("memberID");
+        */ // 로그인기능 구현 이후 사용할 코드
+        int id = 30;
+        model.addAttribute("memberId",id); //
         return "post/createPost";
     }
+
     // 각 구단의 게시판 글 등록하기
     @PostMapping("/{teamName}/{postType}")
     public String savePost(@PathVariable String teamName, @PathVariable String postType, PostDto postDto) {
         Post saved = postService.createPost(postDto);       // 게시글 db에 저장
         return "redirect:/" + teamName + "/" + postType + "/" + saved.getId();       // 등록한 게시글 화면으로 리다이렉트
     }
+
     // 게시판에서 수정할 게시글 화면 띄우기
     @GetMapping("/{teamName}/{postType}/{id}/edit")
     public String editPost(@PathVariable String teamName,
@@ -134,4 +160,20 @@ public class PostController {
         rttr.addFlashAttribute("msg", "The deletion has been completed.");
         return "redirect:/" + teamName + "/" + postType;     // 해당 구단의 해당 게시판 목록으로 이동
     }
+
+    private int intPostType(String postType){
+        int res = -1;
+        switch(postType){
+            case "information":
+                res = 0;
+                break;
+            case "question":
+                res = 1;
+                break;
+            case "talk":
+                res = 2;
+                break;
+        }
+        return res;
+    } // posttype를 int로 넘기기 위한 도움 함수..
 }

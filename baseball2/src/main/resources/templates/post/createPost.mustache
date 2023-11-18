@@ -8,10 +8,37 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>createPost.mustache</title>
 </head>
 <body>
-<h1>create post form!!!</h1>
+<h1>POST request to : /{{teamName}}/{{postType}}</h1>
+
+<form action="/{{teamName}}/{{postType}}" method="post">
+    <label for="id">post id:</label><br>
+    <input type="number" id="id" name="id" value=0 readonly><br><br>
+
+    <label for="teamName">postType {{postType}},{{intPostType}}</label><br>
+    <input type="number" id="postType" name="postType" value="{{intPostType}}" readonly><br><br>
+
+    <label for="teamName">Team Name:</label><br>
+    <input type="text" id="teamName" name="teamName" value="{{teamName}}" readonly><br><br>
+
+    <label for="writerId">writer Id:</label><br>
+    <input type="number" id="writerId" name="writerId" value="{{memberId}}" readonly><br><br>
+
+
+    <label for="title">Title:</label><br>
+    <input type="text" id="title" name="title"><br><br>
+
+    <label for="contents">Contents:</label><br>
+    <textarea id="contents" name="contents" rows="4" cols="50"></textarea><br><br>
+
+<!-- Additional fields like writerId can be included if needed -->
+
+    <input type="submit" value="Create Post">
+</form>
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
