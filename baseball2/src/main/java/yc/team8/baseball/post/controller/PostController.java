@@ -105,6 +105,7 @@ public class PostController {
         return "redirect:/" + teamName + "/" + postType + "/" + saved.getId();       // 등록한 게시글 화면으로 리다이렉트
     }
 
+
     // 게시판에서 수정할 게시글 화면 띄우기
     @GetMapping("/{teamName}/{postType}/{id}/edit")
     public String editPost(@PathVariable String teamName,
@@ -113,23 +114,32 @@ public class PostController {
                            HttpServletRequest request,
                            RedirectAttributes rttr,
                            Model model) {
+       /* 로그인 기능 구현 이후 다시 사용!!!
+
+
         // 해당 게시글의 작성자가 접근하는 건지 검사
         HttpSession session = request.getSession(false);
         if(session == null)
             return "redirect:/login";
         Long member_id = (Long)session.getAttribute("memberID");
         // 수정할 데이터 가져오기
+
+
+        */
+
         Post target = postService.getPost(id);
+        /*
 
         if(target.getWriterId() != member_id) {     // 게시글 작성자가 아님
             rttr.addFlashAttribute("msg", "Only writer can revise it.");
             return "redirect:/" + teamName + "/" + postType + "/" + id;
         }
 
+         */
         // 모델에 수정할 게시글, 구단 이름, 게시판 종류 저장하기
         model.addAttribute("post", target);
         model.addAttribute("teamName", teamName);
-        model.addAttribute("postType", postType);
+        model.addAttribute("stringPostType", postType);
         return "post/editPost";
     }
     // 게시판에서 수정한 게시글 업데이트 후 다시 띄우기
