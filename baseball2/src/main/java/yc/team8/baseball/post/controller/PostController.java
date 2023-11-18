@@ -47,6 +47,8 @@ public class PostController {
 
         model.addAttribute("teamName", teamName);
         model.addAttribute("postType", postType);
+        model.addAttribute("stringPostType", postType);
+
         // 해당 구단의 해당 게시판 글 목록 가져오기
         ArrayList<Post> infoArr = postService.getPosts(teamName, postType);
         model.addAttribute("postList", infoArr);        // 게시글 목록 모델에 저장
@@ -61,7 +63,7 @@ public class PostController {
         // 모델에 게시판 글 엔티티, 구단 이름, 게시판 종류 저장
         model.addAttribute("post", post);
         model.addAttribute("teamName", teamName);
-        model.addAttribute("postType", postType);
+        model.addAttribute("stringPostType", postType);
         return "post/showPost";
     }
     // 게시판 글 등록할 수 있는 화면 띄우기
@@ -88,8 +90,10 @@ public class PostController {
             }
         } // 자격 확인 (위 코드 복붙)
         Long id = (Long)session.getAttribute("memberID");
-        */ // 로그인기능 구현 이후 사용할 코드
-        int id = 30;
+
+        로그인기능 구현 이후 사용할 코드 */
+
+        int id = 30; //writerId
         model.addAttribute("memberId",id); //
         return "post/createPost";
     }
