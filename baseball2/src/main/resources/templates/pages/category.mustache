@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>{{teamName}} - {{postType}} Page</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -42,16 +42,31 @@
         </div>
     </div>
 </nav>
-<h1> this is {{teamName}},{{postType}} page</h1>
 
-{{#postList}}
-    <h5>{{title}}</h5>
-{{/postList}}
+<h1> This is {{teamName}}, {{postType}} page</h1>
 
-<a href="/{{teamName}}/{{postType}}/create"> create new post ( post/createPost.mustache )</a>
+<table class="table table-horizontal table-bordered">
+    <thead class="thead-strong">
+    <tr>
+        <th>Title</th>
+        <th>Content</th>
+        <th>Writer</th>
+        <th>Created At</th>
+    </tr>
+    </thead>
+    <tbody id="tbody">
+    {{#postList}}
+        <tr>
+            <td><a href="/{{teamName}}/{{postType}}/{{id}}">{{title}}</a></td>
+            <td>{{contents}}</td>
+            <td>{{writerId}}</td>
+            <td>{{createdAt}}</td>
+        </tr>
+    {{/postList}}
+    </tbody>
+</table>
 
-
-
+<a href="/{{teamName}}/{{postType}}/create">Create New Post</a>
 
 <!-- Optional JavaScript; choose one of the two! -->
 
