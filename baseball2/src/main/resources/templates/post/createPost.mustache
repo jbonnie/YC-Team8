@@ -15,9 +15,6 @@
     <h1>Create New Post to {{teamName}} {{postType}} Page</h1>
 
     <form action="/{{teamName}}/{{postType}}" method="post">
-        <label for="id">Post Id</label><br>
-        <input type="number" id="id" name="id" value=0 readonly><br><br>
-        <!-- value 0 은 의미없는 더미값)-->
 
         <label for="teamName">Post Type {{postType}}</label><br>
         <input type="number" id="postType" name="postType" value="{{intPostType}}" readonly><br><br>
