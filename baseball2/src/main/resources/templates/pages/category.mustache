@@ -20,22 +20,22 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/{{teamName}}/information">info</a>
+                    <a class="nav-link active" aria-current="page" href="/{{teamName}}/information">Info</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/{{teamName}}/question">question</a>
+                    <a class="nav-link" href="/{{teamName}}/question">Question</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/{{teamName}}/talk">talk</a>
+                    <a class="nav-link" href="/{{teamName}}/talk">Talk</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown link
+                        Select Team
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="/team1">team1</a></li>
-                        <li><a class="dropdown-item" href="/team2">team2</a></li>
-                        <li><a class="dropdown-item" href="/team3">team3</a></li>
+                        <li><a class="dropdown-item" href="/team1">Team1</a></li>
+                        <li><a class="dropdown-item" href="/team2">Team2</a></li>
+                        <li><a class="dropdown-item" href="/team3">Team3</a></li>
                     </ul>
                 </li>
             </ul>
@@ -43,30 +43,32 @@
     </div>
 </nav>
 
-<h1> This is {{teamName}}, {{postType}} page</h1>
+<div style="margin: 20px">
+    <h1 style="margin-bottom: 20px">{{teamName}} {{postType}} page</h1>
 
-<table class="table table-horizontal table-bordered">
-    <thead class="thead-strong">
-    <tr>
-        <th>Title</th>
-        <th>Content</th>
-        <th>Writer</th>
-        <th>Created At</th>
-    </tr>
-    </thead>
-    <tbody id="tbody">
-    {{#postList}}
+    <table class="table table-horizontal table-bordered">
+        <thead class="thead-strong">
         <tr>
-            <td><a href="/{{teamName}}/{{stringPostType}}/{{id}}">{{title}}</a></td>
-            <td>{{contents}}</td>
-            <td>{{writerId}}</td>
-            <td>{{createdAt}}</td>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Writer</th>
+            <th>Created At</th>
         </tr>
-    {{/postList}}
-    </tbody>
-</table>
+        </thead>
+        <tbody id="tbody">
+        {{#postList}}
+            <tr>
+                <td><a href="/{{teamName}}/{{stringPostType}}/{{id}}">{{title}}</a></td>
+                <td>{{contents}}</td>
+                <td>{{writerId}}</td>
+                <td>{{createdAt}}</td>
+            </tr>
+        {{/postList}}
+        </tbody>
+    </table>
 
-<a href="/{{teamName}}/{{postType}}/create">Create New Post</a>
+    <a href="/{{teamName}}/{{postType}}/create" style="margin-top: 20px">Create New Post</a>
+</div>
 
 <!-- Optional JavaScript; choose one of the two! -->
 
