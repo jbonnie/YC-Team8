@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import yc.team8.baseball.member.domain.Member;
+import yc.team8.baseball.member.dto.LoginDto;
 import yc.team8.baseball.member.dto.MemberDto;
 import yc.team8.baseball.member.repository.MemberRepository;
 
@@ -15,8 +16,8 @@ public class MemberService {
     private MemberRepository memberRepository;
 
     // 전달받은 parameter로 유저 찾기, 존재하지 않을 시 null 반환
-    public Member getMemberWithDto(MemberDto memberDto) {
-        Member member = memberRepository.findByLoginIdAndPassword(memberDto.getLoginId(), memberDto.getPassword()).orElse(null);
+    public Member getMemberWithDto(LoginDto loginDto) {
+        Member member = memberRepository.findByLoginIdAndPassword(loginDto.getLoginId(), loginDto.getPassword()).orElse(null);
         return member;
     }
     public Member getMemberWithLoginId(String loginId) {
