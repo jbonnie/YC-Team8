@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import yc.team8.baseball.member.domain.Member;
+import yc.team8.baseball.member.dto.LoginDto;
 import yc.team8.baseball.member.dto.MemberDto;
 import yc.team8.baseball.member.service.MemberService;
 import yc.team8.baseball.post.domain.Post;
@@ -35,10 +36,11 @@ public class MemberController {
     }
     // 로그인 시도 -> 검증
     @PostMapping("/login")
-    public String login(MemberDto memberDto,
+    public String login(LoginDto loginDto,
                         HttpServletRequest request,
                         RedirectAttributes rttr) {
-        Member member = memberService.getMemberWithDto(memberDto);
+
+        Member member = memberService.getMemberWithDto(loginDto);
         if(member == null) {        // 로그인 실패
             String failMessage = "Login failed. Please check your ID or password.";
             rttr.addFlashAttribute("msg", failMessage);
@@ -69,10 +71,9 @@ public class MemberController {
             Member member2 = memberService.getMemberWithNickname(memberDto.getNickname());
             if(member2 != null) {       // 중복 닉네임 존재
                 // 회원가입 창 다시 띄울 때 이미 작성한 ID와 password는 채워져 있게끔
-                rttr.addFlashAttribute("msg", "Already existing nickname. Please use another one.");
-                model.addAttribute("loginId", memberDto.getLoginId());
-                model.addAttribute("password", memberDto.getPassword());
-                return "redirect:/signup";
+                model.addAttribute("msg", "Already existing nickname. Please use another one.");
+                model.addAttribute("member", memberDto);
+                return "member/signUp";
             }
             else {      // 회원가입 성공
                 // 멤버 저장
@@ -95,7 +96,7 @@ public class MemberController {
         // 현재 로그인 되어있지 않음
         if(session == null) {
             rttr.addFlashAttribute("msg", "Please log in first.");
-            return "member/login";        // 로그인 화면 반환
+            return "redirect:/login";        // 로그인 화면 반환
         }
         // 로그인 되어있음
         Long id = (Long)session.getAttribute("memberID");   // 세션에 보관된 유저의 id 가져오기
