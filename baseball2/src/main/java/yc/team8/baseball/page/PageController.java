@@ -39,7 +39,7 @@ public class PageController {
     }
 
     @GetMapping("/{teamName}")
-    String otherTeam(@PathVariable String teamName, Model model){
+    String otherTeam(@PathVariable String teamName, Model model) {
         model.addAttribute("teamName" , teamName);
         return "pages/home";
     }

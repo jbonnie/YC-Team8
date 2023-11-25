@@ -125,13 +125,34 @@ public class MemberController {
     // 유저 정보 수정
     @PostMapping("/mypage/update")
     public String updateMember(MemberDto memberDto,
-                               RedirectAttributes rttr) {
-
+                               RedirectAttributes rttr,
+                               HttpServletRequest request) {
+        // 수정 전 원래 유저 객체 가져오기
+        HttpSession session = request.getSession();
+        Long id = (Long)session.getAttribute("memberID");
+        Member original_member = memberService.getMemberWithId(id);
+        // memberDto의 id에 원래 유저의 id 넣어주기
+        memberDto.setId(original_member.getId());
         // 중복 id 확인
         Member member = memberService.getMemberWithLoginId(memberDto.getLoginId());
         if(member != null) {        // 중복 ID 존재
-            rttr.addFlashAttribute("msg", "Already existing ID. Please use another one.");
-            return "redirect:/mypage/edit";
+            if(member.getId().equals(original_member.getId())) {     // 유저가 자신의 아이디를 수정하지 않았을 경우
+                // 중복 닉네임 확인
+                Member member2 = memberService.getMemberWithNickname(memberDto.getNickname());
+                if(member2 != null) {       // 중복 닉네임 존재
+                    rttr.addFlashAttribute("msg", "Already existing nickname. Please use another one.");
+                    return "redirect:/mypage/edit";
+                }
+                else {      // 수정 성공
+                    // 유저 정보 업데이트 후 DB에 저장
+                    memberService.updateMember(memberDto);
+                    return "redirect:/mypage";      // 마이페이지로 리다이렉트
+                }
+            }
+            else {      // 다른 유저가 이미 수정한 아이디를 사용
+                rttr.addFlashAttribute("msg", "Already existing ID. Please use another one.");
+                return "redirect:/mypage/edit";
+            }
         }
         else {
             // 중복 닉네임 확인
