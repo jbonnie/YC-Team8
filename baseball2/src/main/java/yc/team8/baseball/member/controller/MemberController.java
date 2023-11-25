@@ -140,8 +140,15 @@ public class MemberController {
                 // 중복 닉네임 확인
                 Member member2 = memberService.getMemberWithNickname(memberDto.getNickname());
                 if(member2 != null) {       // 중복 닉네임 존재
-                    rttr.addFlashAttribute("msg", "Already existing nickname. Please use another one.");
-                    return "redirect:/mypage/edit";
+                    if(member2.getId().equals(original_member.getId())) {   // 유저가 자신의 닉네임도 수정하지 않았을 경우
+                        // 유저 정보 업데이트 후 DB에 저장
+                        memberService.updateMember(memberDto);
+                        return "redirect:/mypage";      // 마이페이지로 리다이렉트
+                    }
+                    else {      // 다른 유저가 이미 사용 중인 닉네임
+                        rttr.addFlashAttribute("msg", "Already existing nickname. Please use another one.");
+                        return "redirect:/mypage/edit";
+                    }
                 }
                 else {      // 수정 성공
                     // 유저 정보 업데이트 후 DB에 저장
@@ -158,8 +165,15 @@ public class MemberController {
             // 중복 닉네임 확인
             Member member2 = memberService.getMemberWithNickname(memberDto.getNickname());
             if(member2 != null) {       // 중복 닉네임 존재
-                rttr.addFlashAttribute("msg", "Already existing nickname. Please use another one.");
-                return "redirect:/mypage/edit";
+                if(member2.getId().equals(original_member.getId())) {     // 유저가 자신의 닉네임은 수정하지 않았을 경우
+                    // 유저 정보 업데이트 후 DB에 저장
+                    memberService.updateMember(memberDto);
+                    return "redirect:/mypage";      // 마이페이지로 리다이렉트
+                }
+                else {      // 다른 유저가 사용하는 닉네임일 경우
+                    rttr.addFlashAttribute("msg", "Already existing nickname. Please use another one.");
+                    return "redirect:/mypage/edit";
+                }
             }
             else {      // 수정 성공
                 // 유저 정보 업데이트 후 DB에 저장

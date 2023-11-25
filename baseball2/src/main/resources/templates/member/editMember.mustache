@@ -21,14 +21,14 @@
 </head>
 <body>
 
-<div style="padding:5px">
+{{#msg}}
+    <div class="alert alert-warning" role="alert" style="margin-bottom:0px">
+        {{msg}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{{/msg}}
 
-    {{#msg}}
-        <div class="alert alert-warning" role="alert" style="margin-bottom:0px">
-            {{msg}}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    {{/msg}}
+<div style="padding:5px">
 
     <h1>Edit My Page</h1>
 

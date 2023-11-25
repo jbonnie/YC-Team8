@@ -29,6 +29,13 @@
 </head>
 <body>
 
+{{#msg}}
+    <div class="alert alert-warning" role="alert" style="margin-bottom:0px">
+        {{msg}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{{/msg}}
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="/{{teamName}}">Baseball</a>
