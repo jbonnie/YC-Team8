@@ -29,8 +29,12 @@ public class PageController {
         // 로그인 되어 있을 경우
         Long id = (Long)session.getAttribute("memberID");   // 세션에 보관된 유저의 id 가져오기
         Member member = memberService.getMemberWithId(id);
-        // 유저의 응원 구단 정보 모델에 저장
-        model.addAttribute("teamName" , member.getTeam());
+        // 만약 유저의 응원 구단이 없을 경우(none)
+        if(member.getTeam().equals("none"))
+            model.addAttribute("teamName", "LG");
+        // 응원 구단이 있을 경우
+        else
+            model.addAttribute("teamName" , member.getTeam());
         return "pages/home";        // 홈 화면 띄우기
     }
 
