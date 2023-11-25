@@ -53,7 +53,6 @@ public class PostService {
 
     // postDto로 받은 데이터로 DB에 있던 게시물 내용 교체
     public Post updatePost(PostDto postDto) {
-
         Post target = postRepository.findById(postDto.getId()).orElse(null);
         if(target != null) {
             // postDto의 제목과 내용으로 게시물 변경

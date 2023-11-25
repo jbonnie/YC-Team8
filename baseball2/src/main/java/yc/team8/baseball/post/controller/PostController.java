@@ -50,8 +50,8 @@ public class PostController {
         model.addAttribute("stringPostType", postType);
 
         // 해당 구단의 해당 게시판 글 목록 가져오기
-        ArrayList<Post> infoArr = postService.getPosts(teamName, postType);
-        model.addAttribute("postList", infoArr);        // 게시글 목록 모델에 저장
+        ArrayList<Post> postArr = postService.getPosts(teamName, postType);
+        model.addAttribute("postList", postArr);        // 게시글 목록 모델에 저장
         return "pages/category";
     }
     // 각 구단의 게시판 글 하나 보여주기
@@ -71,7 +71,6 @@ public class PostController {
     public String createPost(@PathVariable String teamName,
                              @PathVariable String postType,
                              HttpServletRequest request,
-                             RedirectAttributes rttr,
                              Model model) {
         model.addAttribute("teamName", teamName);
         model.addAttribute("postType", postType);
