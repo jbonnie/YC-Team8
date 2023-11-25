@@ -79,7 +79,9 @@ public class PostController {
 
         HttpSession session = request.getSession(false); // --유저 정보(id) 가져오기 위한 부분
         Long id = (Long)session.getAttribute("memberID");
-        model.addAttribute("memberId",id); //
+        Member member = memberService.getMemberWithId(id);
+
+        model.addAttribute("memberId",member.getId().toString());
         return "post/createPost";
     }
 

@@ -8,36 +8,40 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>Update Post</title>
 </head>
 <body>
-<h1>update request to : /{{post.teamName}}/{{stringPostType}}</h1>
 
-<form action="/{{post.teamName}}/{{stringPostType}}/{{post.id}}/update" method="post">
-    <label for="id">post id:</label><br>
-    <input type="number" id="id" name="id" value={{post.id}} readonly><br><br>
+<div class="container mt-4">
+    <h1>Update Request to: /{{post.teamName}}/{{stringPostType}}</h1>
 
-    <label for="teamName">postType {{post.postType}}, {{stringPostType}}</label><br>
-    <input type="number" id="postType" name="postType" value="{{post.postType}}" readonly><br><br>
+    <form action="/{{post.teamName}}/{{stringPostType}}/{{post.id}}/update" method="post">
+        <div class="mb-3">
+            <label for="id" class="form-label">Post ID:</label>
+            <input type="number" class="form-control" id="id" name="id" value="{{post.id}}" readonly>
+        </div>
 
-    <label for="teamName">Team Name:</label><br>
-    <input type="text" id="teamName" name="teamName" value="{{post.teamName}}" readonly><br><br>
+        <div class="mb-3">
+            <label for="title" class="form-label">Title:</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{post.title}}">
+        </div>
 
-    <label for="writerId">writer Id:</label><br>
-    <input type="number" id="writerId" name="writerId" value="{{post.writerId}}" readonly><br><br>
+        <div class="mb-3">
+            <label for="contents" class="form-label">Contents:</label>
+            <textarea class="form-control" id="contents" name="contents" rows="4">{{post.contents}}</textarea>
+        </div>
 
-    <!--    readonly -> input type hidden으로 추후 변경 필요-->
-    <label for="title">Title:</label><br>
-    <input type="text" id="title" name="title" value={{post.title}}><br><br>
+        <!-- Additional fields like writerId can be included if needed -->
 
-    <label for="contents">Contents:</label><br>
-    <textarea id="contents" name="contents" rows="4" cols="50">{{post.contents}}</textarea><br><br>
+        <input type="hidden" id="postType" name="postType" value="{{post.postType}}">
+        <input type="hidden" id="teamName" name="teamName" value="{{post.teamName}}">
+        <input type="hidden" id="writerId" name="writerId" value="{{post.writerId}}">
 
-    <!-- Additional fields like writerId can be included if needed -->
+        <button type="submit" class="btn btn-primary">Update Post</button>
+    </form>
 
-    <input type="submit" value="update Post">
-</form>
-<a href="/{{post.teamName}}/{{stringPostType}}">return to post list</a>
+    <a href="/{{post.teamName}}/{{stringPostType}}" class="btn btn-secondary mt-3">Return to Post List</a>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
