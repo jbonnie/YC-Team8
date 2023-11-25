@@ -77,23 +77,8 @@ public class PostController {
         model.addAttribute("postType", postType);
         model.addAttribute("intPostType", intPostType(postType));
 
-       /* HttpSession session = request.getSession(false); // --유저 정보(id) 가져오기 위한 부분
-        if(postType.equals("talk")) {
-            if(session == null)
-                return "redirect:/login";
-            Long id = (Long)session.getAttribute("memberID");
-            Member member = memberService.getMemberWithId(id);
-            if(!member.getTeam().equals(teamName)) {        // 자격이 없음
-                String msg = "You're not a fan of " + teamName + "!";
-                rttr.addFlashAttribute("msg", msg);
-                return "redirect:/" + teamName;
-            }
-        } // 자격 확인 (위 코드 복붙)
+        HttpSession session = request.getSession(false); // --유저 정보(id) 가져오기 위한 부분
         Long id = (Long)session.getAttribute("memberID");
-
-        로그인기능 구현 이후 사용할 코드 */
-
-        int id = 30; //writerId
         model.addAttribute("memberId",id); //
         return "post/createPost";
     }
@@ -114,8 +99,6 @@ public class PostController {
                            HttpServletRequest request,
                            RedirectAttributes rttr,
                            Model model) {
-       /* 로그인 기능 구현 이후 다시 사용!!!
-
 
         // 해당 게시글의 작성자가 접근하는 건지 검사
         HttpSession session = request.getSession(false);
@@ -124,18 +107,12 @@ public class PostController {
         Long member_id = (Long)session.getAttribute("memberID");
         // 수정할 데이터 가져오기
 
-
-        */
-
         Post target = postService.getPost(id);
-        /*
 
         if(target.getWriterId() != member_id) {     // 게시글 작성자가 아님
             rttr.addFlashAttribute("msg", "Only writer can revise it.");
             return "redirect:/" + teamName + "/" + postType + "/" + id;
         }
-
-         */
         // 모델에 수정할 게시글, 구단 이름, 게시판 종류 저장하기
         model.addAttribute("post", target);
         model.addAttribute("teamName", teamName);
