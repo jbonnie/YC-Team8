@@ -24,7 +24,7 @@
 |**POST**| /{teamName}/{postType}/{post_id}/update|게시물 수정|
 |**GET**| /{teamName}/{postType}/{post_id}/delete|게시물 삭제|
 |**GET**| /{teamName}/{postType}/{post_id}/scrap|게시물 스크랩|
-|**GET***| /{teamName}/{postType}/{post_id}/comment|댓글 등록 창 띄우기|
+|**GET**| /{teamName}/{postType}/{post_id}/comment|댓글 등록 창 띄우기|
 |**POST**| /{teamName}/{postType}/{post_id}/comment|댓글 등록|
 |**GET**| /{teamName}/{postType}/{post_id}/{comment_id}/edit|댓글 수정 화면 띄우기|
 |**POST**| /{teamName}/{postType}/{post_id}/{comment_id}/update|댓글 수정|
