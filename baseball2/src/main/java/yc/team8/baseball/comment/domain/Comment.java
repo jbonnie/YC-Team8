@@ -1,11 +1,13 @@
-package yc.team8.baseball.post.domain;
+package yc.team8.baseball.comment.domain;
 
 import jakarta.persistence.*;
-import lombok.*;
-import org.antlr.v4.runtime.misc.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import yc.team8.baseball.post.domain.Post;
 
 import java.time.LocalDateTime;
 
@@ -14,26 +16,21 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 @EntityListeners(AuditingEntityListener.class)
-public class Post implements Comparable<Post>{
+public class Comment implements Comparable<Comment>{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false)
     private Long id;
 
-    @Column(name = "postType")
-    private int postType;       // 0: information, 1: question, 2: talk
+    @Column(name = "postId", nullable = false)
+    private Long postId;
 
-    @Column(name = "teamName", nullable = false)
-    private String teamName;        // 응원하는 구단 이름
+    @Column(name = "nickname", nullable = false)
+    private String nickname;
 
-    @Column(name = "title", nullable = false)
-    private String title;
-
-    @Column(name = "contents")
+    @Column(name = "contents", nullable = false)
     private String contents;
-
-    @Column(name = "writerId")
-    private long writerId;
 
     @CreatedDate
     private LocalDateTime createdAt;
@@ -41,26 +38,24 @@ public class Post implements Comparable<Post>{
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
-    public Post(Long id, int postType, String teamName, String title, String contents, long writerId) {
+    public Comment(Long id, Long postId, String nickname, String contents) {
         this.id = id;
-        this.postType = postType;
-        this.teamName = teamName;
-        this.title = title;
+        this.postId = postId;
+        this.nickname = nickname;
         this.contents = contents;
-        this.writerId = writerId;
     }
 
     @Override
-    public int compareTo(Post post) {
+    public int compareTo(Comment comment) {
         // 업데이트 최신순 정렬
-        if(updatedAt.compareTo(post.getUpdatedAt()) > 0) {
+        if(updatedAt.compareTo(comment.getUpdatedAt()) > 0) {
             return -1;
         }
-        else if(updatedAt.compareTo(post.getUpdatedAt()) < 0) {
+        else if(updatedAt.compareTo(comment.getUpdatedAt()) < 0) {
             return 1;
         }
         else {      // 업데이트 시간이 동일할 경우
-            if(id < post.getId()) {
+            if(id < comment.getId()) {
                 return 1;
             } else
                 return -1;
