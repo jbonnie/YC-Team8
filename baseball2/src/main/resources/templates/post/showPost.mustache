@@ -88,6 +88,45 @@
     </div>
 </div>
 
+<hr>
+<!--댓글 부분-->
+<div>
+{{#comments}}
+    <div class="card m-2">
+        <h5 class="card-header">{{nickname}}</h5>
+        <p class="card-header">{{updatedAt}}</p>
+        <div class="card-body">
+            <p class="card-text">{{contents}}</p>
+            <button type="button" class="btn btn-warning"
+                    onclick="location.href='/{{teamName}}/{{stringPostType}}/{{post.id}}/{{id}}/edit'">
+                Edit
+            </button>
+            <button type="button" class="btn btn-danger"
+                    onclick="location.href='/{{teamName}}/{{stringPostType}}/{{post.id}}/{{id}}/delete'">
+                Delete
+            </button>
+        </div>
+    </div>
+{{/comments}}
+</div>
+
+<hr>
+<!--댓글 작성 폼-->
+<div class="card m-2" id="comments-new">
+    <div class="card-body">
+        <form action="/{{post.teamName}}/{{stringPostType}}/{{post.id}}/comment" method="post">
+            <div class="mb-3">
+                <h5>Write new comment</h5>
+                <input style="margin:0px" type="hidden" name="postId" value={{post.id}}>
+                <label class="form-label">nickname</label>
+                <input type="text" class="form-control" id="user-nickname" name="nickname" value={{member.nickname}} style="margin-bottom:10px" readonly>
+                <textarea type="text" class="form-control" rows="3" id="new-comment-body" name="contents" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>

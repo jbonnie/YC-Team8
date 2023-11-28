@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import yc.team8.baseball.comment.domain.Comment;
+import yc.team8.baseball.comment.service.CommentService;
 import yc.team8.baseball.member.domain.Member;
 import yc.team8.baseball.member.service.MemberService;
 import yc.team8.baseball.post.domain.Post;
@@ -24,6 +26,10 @@ public class PostController {
     private PostService postService;
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private CommentService commentService;
+
     // 각 구단의 게시판 창 띄우기
     @GetMapping("/{teamName}/{postType}")
     public String showBoard(@PathVariable String teamName,
@@ -56,14 +62,24 @@ public class PostController {
     }
     // 각 구단의 게시판 글 하나 보여주기
     @GetMapping("/{teamName}/{postType}/{id}")
-    public String showPost(@PathVariable String teamName, @PathVariable String postType,
-                              @PathVariable Long id, Model model) {
+    public String showPost(@PathVariable String teamName,
+                           @PathVariable String postType,
+                           @PathVariable Long id,
+                           HttpServletRequest request, Model model) {
         // 해당 구단의 게시글 하나 데이터 가져오기
         Post post = postService.getPost(id);
         // 모델에 게시판 글 엔티티, 구단 이름, 게시판 종류 저장
         model.addAttribute("post", post);
         model.addAttribute("teamName", teamName);
         model.addAttribute("stringPostType", postType);
+        // 해당 게시글의 모든 댓글 가져와서 모델에 저장
+        ArrayList<Comment> commentList = commentService.getComments(id);
+        model.addAttribute("comments", commentList);
+        // 현재 유저 모델에 저장
+        HttpSession session = request.getSession();
+        Long user_id = (Long)session.getAttribute("memberID");
+        Member member = memberService.getMemberWithId(user_id);
+        model.addAttribute("member", member);
         return "post/showPost";
     }
     // 게시판 글 등록할 수 있는 화면 띄우기
@@ -76,7 +92,7 @@ public class PostController {
         model.addAttribute("postType", postType);
         model.addAttribute("intPostType", intPostType(postType));
 
-        HttpSession session = request.getSession(false); // --유저 정보(id) 가져오기 위한 부분
+        HttpSession session = request.getSession(false);
         Long id = (Long)session.getAttribute("memberID");
         Member member = memberService.getMemberWithId(id);
 

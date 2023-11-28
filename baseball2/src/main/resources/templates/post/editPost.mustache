@@ -60,8 +60,7 @@
 
     <form action="/{{post.teamName}}/{{stringPostType}}/{{post.id}}/update" method="post">
         <div class="mb-3">
-            <label for="id" class="form-label">Post ID:</label>
-            <input type="number" class="form-control" id="id" name="id" value="{{post.id}}" readonly>
+            <input style="margin:0px" type="hidden" name="id" value="{{post.id}}">
         </div>
 
         <div class="mb-3">
