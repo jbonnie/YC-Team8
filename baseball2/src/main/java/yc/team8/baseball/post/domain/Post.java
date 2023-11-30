@@ -35,19 +35,24 @@ public class Post implements Comparable<Post>{
     @Column(name = "writerId")
     private long writerId;
 
+    @Column(name = "writerNickname")
+    private String writerNickname;
+
     @CreatedDate
     private LocalDateTime createdAt;
 
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
-    public Post(Long id, int postType, String teamName, String title, String contents, long writerId) {
+    public Post(Long id, int postType, String teamName, String title, String contents, long writerId, String writerNickname) {
         this.id = id;
         this.postType = postType;
         this.teamName = teamName;
         this.title = title;
         this.contents = contents;
         this.writerId = writerId;
+        this.writerNickname = writerNickname;
+
     }
 
     @Override

@@ -35,12 +35,24 @@ public class PageController {
         // 응원 구단이 있을 경우
         else
             model.addAttribute("teamName" , member.getTeam());
+
+        // 유저 닉네임 가져와 홈화면에 디스플레이
+        String nickname = memberService.getMemberWithId(id).getNickname();
+        model.addAttribute("writerNickname", nickname); // login 닉네임 정보 띄우기 위한 조회
         return "pages/home";        // 홈 화면 띄우기
     }
 
     @GetMapping("/{teamName}")
-    String otherTeam(@PathVariable String teamName, Model model) {
+    String otherTeam(@PathVariable String teamName,
+                     HttpServletRequest request,
+                     Model model) {
         model.addAttribute("teamName" , teamName);
+
+        // 유저 닉네임 가져와 홈화면에 디스플레이
+        HttpSession session = request.getSession(false);
+        Long id = (Long)session.getAttribute("memberID");   // 세션에 보관된 유저의 id 가져오기
+        String nickname = memberService.getMemberWithId(id).getNickname();
+        model.addAttribute("writerNickname", nickname); // login 닉네임 정보 띄우기 위한 조회
         return "pages/home";
     }
 }

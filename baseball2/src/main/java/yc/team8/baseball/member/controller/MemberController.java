@@ -82,7 +82,7 @@ public class MemberController {
                 HttpSession session = request.getSession(true);
                 // 세션에 회원 id (long) 보관
                 session.setAttribute("memberID", new_member.getId());
-                rttr.addFlashAttribute("msg", "Welcome!");
+                rttr.addFlashAttribute("msg", "Welcome, " + memberDto.getNickname() + "!");
                 return "redirect:/";        // 홈 화면으로 리다이렉트
             }
         }

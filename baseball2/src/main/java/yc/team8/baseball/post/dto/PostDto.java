@@ -18,7 +18,8 @@ public class PostDto {
     private String title;
     private String contents;
     private long writerId;
+    private String writerNickname;
     public Post toEntity() {
-        return new Post(id, postType, teamName, title, contents, writerId);
+        return new Post(id, postType, teamName, title, contents, writerId, writerNickname);
     }
 }

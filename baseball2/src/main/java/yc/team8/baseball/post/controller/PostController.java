@@ -102,7 +102,16 @@ public class PostController {
 
     // 각 구단의 게시판 글 등록하기
     @PostMapping("/{teamName}/{postType}")
-    public String savePost(@PathVariable String teamName, @PathVariable String postType, PostDto postDto) {
+    public String savePost(@PathVariable String teamName,
+                           @PathVariable String postType,
+                           HttpServletRequest request,
+                           PostDto postDto) {
+
+        HttpSession session = request.getSession(false);
+        Long member_id = (Long)session.getAttribute("memberID");// 세션 정보 가져오기
+        String nickname = memberService.getMemberWithId(member_id).getNickname();
+
+        postDto.setWriterNickname(nickname); //세션 아이디로 작성자의 닉네임을 조회하고 dto에 추가
         Post saved = postService.createPost(postDto);       // 게시글 db에 저장
         return "redirect:/" + teamName + "/" + postType + "/" + saved.getId();       // 등록한 게시글 화면으로 리다이렉트
     }
