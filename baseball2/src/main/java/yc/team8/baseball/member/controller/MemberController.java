@@ -14,6 +14,8 @@ import yc.team8.baseball.member.dto.MemberDto;
 import yc.team8.baseball.member.service.MemberService;
 import yc.team8.baseball.post.domain.Post;
 import yc.team8.baseball.post.service.PostService;
+import yc.team8.baseball.scrap.domain.Scrap;
+import yc.team8.baseball.scrap.service.ScrapService;
 
 import java.util.ArrayList;
 
@@ -23,6 +25,8 @@ public class MemberController {
     private MemberService memberService;
     @Autowired
     private PostService postService;
+    @Autowired
+    private ScrapService scrapService;
 
     // 로그인 화면 띄우기
     @GetMapping("/login")
@@ -106,9 +110,8 @@ public class MemberController {
         ArrayList<Post> postList = postService.getPostsByWriter(id);
         model.addAttribute("writePost", postList);
         // 유저가 스크랩한 게시물 목록 모델에 저장하기
-        //
-        //
-        //
+        ArrayList<Scrap> scrapList = scrapService.getScrapsByUser(id);
+        model.addAttribute("scrapPost", scrapList);
         return "member/myPage";
     }
     // 유저 정보 수정 화면 띄우기
