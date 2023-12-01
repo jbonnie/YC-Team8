@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>My Page</title>
+
+    <style>
+        body {
+          background: #f6f5f7;
+          font-family: 'Montserrat', sans-serif;
+          height: 100vh;
+        }
+    </style>
+
+</head>
+<body>
+
+{{#msg}}
+    <div class="alert alert-warning" role="alert" style="margin-bottom:0px">
+        {{msg}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{{/msg}}
+
+<div style="padding:5px">
+
+    <h1>Edit My Page</h1>
+
+    {{#member}}
+    <form action="/mypage/update" method="post">
+        <label class="form-label mt-4"><strong>User ID</strong></label>
+        <input type="text" class="form-control" name="loginId" placeholder="Enter ID" value={{loginId}} required/>
+        <label class="form-label mt-4"><strong>Password</strong></label>
+        <input type="password" class="form-control" name="password" placeholder="Enter password" value={{password}} required/>
+        <label class="form-label mt-4"><strong>Nickname</strong></label>
+        <input type="text" class="form-control" name="nickname" placeholder="Enter nickname" value={{nickname}} required/>
+
+        <label for="exampleSelect1" class="form-label mt-4"><strong>Favorite Team</strong></label>
+        <select name="team" class="form-select" id="exampleSelect1">
+            <option selected value="none">Your favorite team</option>
+            <option value="LG">LG Twins</option>
+            <option value="KT">KT Wiz</option>
+            <option value="SSG">SSG Landers</option>
+            <option value="NC">NC Dinos</option>
+            <option value="Doosan">Doosan Bears</option>
+            <option value="KIA">KIA Tigers</option>
+            <option value="Lotte">Lotte Giants</option>
+            <option value="Samsung">Samsung Lions</option>
+            <option value="Hanhwa">Hanhwa Eagles</option>
+            <option value="Kiwoom">Kiwoom Heroes</option>
+        </select>
+        <br>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    {{/member}}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</div>
+</body>
+</html>

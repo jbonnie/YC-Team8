@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>{{post.title}}</title>
+</head>
+<body>
+
+{{#msg}}
+    <div class="alert alert-warning" role="alert" style="margin-bottom:0px">
+        {{msg}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{{/msg}}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/{{teamName}}">Baseball</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/{{teamName}}/information">Info</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/{{teamName}}/question">Question</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/{{teamName}}/talk">Talk</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Select Team
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="/LG">LG</a></li>
+                        <li><a class="dropdown-item" href="/KT">KT</a></li>
+                        <li><a class="dropdown-item" href="/SSG">SSG</a></li>
+                        <li><a class="dropdown-item" href="/NC">NC</a></li>
+                        <li><a class="dropdown-item" href="/Doosan">Doosan</a></li>
+                        <li><a class="dropdown-item" href="/KIA">KIA</a></li>
+                        <li><a class="dropdown-item" href="/Lotte">Lotte</a></li>
+                        <li><a class="dropdown-item" href="/Samsung">Samsung</a></li>
+                        <li><a class="dropdown-item" href="/Hanhwa">Hanhwa</a></li>
+                        <li><a class="dropdown-item" href="/Kiwoom">Kiwoom</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" href="/mypage">my Page</a></li>
+                <li class="nav-item"><a class="nav-link" href="/logout">logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="row">
+    <div class="col-lg-8 offset-lg-2">
+        <h1 class="display-4 text-center mb-4">{{post.title}}</h1>
+        <hr>
+        <p class="lead">{{post.contents}}</p>
+        <hr>
+        <p class="text-muted">Posted by: {{post.writerId}}</p>
+
+        <div class="text-center mt-4">
+            <button type="button" class="btn btn-dark"
+                    onclick="location.href='/{{teamName}}/{{stringPostType}}'">
+                Back to {{stringPostType}} List
+            </button>
+            <button type="button" class="btn btn-warning"
+                    onclick="location.href='/{{teamName}}/{{stringPostType}}/{{post.id}}/edit'">
+                Edit
+            </button>
+            <button type="button" class="btn btn-danger"
+                    onclick="location.href='/{{teamName}}/{{stringPostType}}/{{post.id}}/delete'">
+                Delete
+            </button>
+
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<!--댓글 작성 폼-->
+<div class="card m-2" id="comments-new">
+    <div class="card-body">
+        <form action="/{{post.teamName}}/{{stringPostType}}/{{post.id}}/{{comment.id}}/update" method="post">
+            <div class="mb-3">
+                <h5>Edit your comment</h5>
+                <input style="margin:0px" type="hidden" name="postId" value={{post.id}}>
+                <input style="margin:0px" type="hidden" name="Id" value={{comment.id}}>
+                <label class="form-label">nickname</label>
+                <input type="text" class="form-control" id="user-nickname" name="nickname" value={{member.nickname}} style="margin-bottom:10px" readonly>
+                <textarea type="text" class="form-control" rows="3" id="new-comment-body" name="contents" required>{{comment.contents}}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
