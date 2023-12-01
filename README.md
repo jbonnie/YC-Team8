@@ -25,5 +25,5 @@
   - 스크랩 추가, 삭제, 마이페이지 상에서 목록 확인
 
 <hr>
-* baseball project: 각자 역할분담하여 구현한 코드의 집합체<br>
+* baseball project: 각자 역할분담하여 구현한 코드 모음<br>
 * baseball2 project: 구현한 코드를 조금씩 추가하여 서버 작동 여부 확인용
