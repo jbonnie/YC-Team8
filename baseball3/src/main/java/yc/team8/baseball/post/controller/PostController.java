@@ -177,6 +177,12 @@ public class PostController {
 
         // 게시글 작성자 확인 후 게시글 삭제
         postService.deletePost(id);
+        // 스크랩 테이블에서도 삭제
+        ArrayList<Scrap> scrapList = scrapRepository.findAllByPostId(id);
+        for(int i = 0; i < scrapList.size(); i++) {
+            Scrap scrap = scrapList.get(i);
+            scrapRepository.delete(scrap);
+        }
         rttr.addFlashAttribute("msg", "The deletion has been completed.");
         return "redirect:/" + teamName + "/" + postType;     // 해당 구단의 해당 게시판 목록으로 이동
     }
@@ -195,7 +201,7 @@ public class PostController {
         // 현재 게시물 객체 가져오기
         Post post = postService.getPost(id);
         // 이미 스크랩한 게시물인지 확인
-        Scrap check = scrapRepository.findByPostId(id).orElse(null);
+        Scrap check = scrapRepository.findByMemberIdAndPostId(member_id, id).orElse(null);
         if(check != null) {     // 스크랩 삭제
             scrapRepository.delete(check);
             rttr.addFlashAttribute("msg", "Scrapping canceled.");

@@ -8,5 +8,7 @@ import java.util.Optional;
 
 public interface ScrapRepository extends JpaRepository<Scrap, Long> {
     ArrayList<Scrap> findAllByMemberId(Long memberId);
-    Optional<Scrap> findByPostId(Long postId);
+
+    ArrayList<Scrap> findAllByPostId(Long postId);
+    Optional<Scrap> findByMemberIdAndPostId(Long memberId, Long postId);
 }
