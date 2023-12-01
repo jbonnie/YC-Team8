@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 public class Post implements Comparable<Post>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false)
+    @Column(name = "postId", updatable = false)
     private Long id;
 
     @Column(name = "postType")
