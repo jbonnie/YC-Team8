@@ -26,4 +26,5 @@
 
 <hr>
 * baseball project: 각자 역할분담하여 구현한 코드 모음<br>
-* baseball2 project: 구현한 코드를 조금씩 추가하여 서버 작동 여부 확인용
+* baseball2 project: 구현한 코드를 조금씩 추가하여 서버 작동 여부 확인용 - 재은님 스크랩 구현 버전
+* baseball3 project: 보경 스크랩 구현 버전 - 최종본
